@@ -1,0 +1,47 @@
+05/07/20:
+    As I've been playing around with vue I've found that I rarely have an idea of
+what I should be doing next and how to do what I want to do. Maybe it's a lack of
+experience with web development or maybe it's a lack of inspiration in terms of what
+I want my website to look like and how I want it to function (or, most likely, a
+combination of both), whatever it is, I frequently feel completely stuck. So with
+this repo I've set out with a clear idea as to what I want to achieve (an online
+portfolio) and a clearly defined approach for how I want to work. For this project,
+I want every step to be absolutely minimal, I want every development to be made in
+service of a minimal product and as the project progresses, those minimal
+requirements can slowly grow. With my more sandbox-y web dev repo I feel like my
+ideas jump around a lot and I can't focus on one thing for long enough to get it
+done, and often whatever I want to do doesn't feel significant enough to warrant
+my attention. If I have tons of things I want to do and no clue of how to do any
+of them, it's clear that I'm gonna end up frustrated pretty frequently.
+
+    So then, thinking of this project, what is the first minimal step that I can
+work on? A portfolio needs to present the creator's body of work, so my project
+should start with a minimal page that contains details of my projects. But of course
+even that is a fairly involved task that requires work on both the front and back
+end. I can imagine how the projects would be stored and then accessed on a web page,
+but first I need to make a decision on what's the most important thing to tackle.
+The goal is functionality, regardless of how good it looks. So first and foremost,
+I think the projects need to exist somewhere so they can be accessed by a server
+when the user loads the page. I think this could be done in a couple of ways, I've
+never used SQL before but I imagine that that could be a path to go down, given I'd
+need to store projects as entries with several properties in a database. Another
+option would be to do what I've done before and simply store the projects as a json
+object, I don't see how that approach would be lacking as there isn't an enormous
+amount of information or entries that I'd need to take care of. Further, if projects
+are the only entries that I'll have, then this database won't be all that relational,
+it's not as though there'll be lots of different entry types that each connect to
+each other (although I might be shooting myself in the foot there by predicting that).
+However, I do feel interested in SQL and I don't think it would hurt to familiarise
+myself with it, even if it does end up being a bit superfluous for this project. So
+I'm gonna start by learning a bit of rudimentary SQL and then making a basic database
+that contains my projects in some form.
+
+;*************************************************************************************
+
+Database notes:
+    A relational database is a database that organizes information into tables
+    A table is a collection of data where rows are entries (records) and columns are
+attributes
+    Each datum is of a certain type, whether that's Int, char, varchar etc.
+    SQL is a declarative language which means it's more concerned with doing things
+rather than how the things are done
