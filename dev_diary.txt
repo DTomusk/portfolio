@@ -45,3 +45,83 @@ attributes
     Each datum is of a certain type, whether that's Int, char, varchar etc.
     SQL is a declarative language which means it's more concerned with doing things
 rather than how the things are done
+
+;*************************************************************************************
+
+06/07/20:
+
+These are the commands I used to create my database:
+
+SHOW databases;
+CREATE database Portfolio;
+use Portfolio;
+CREATE table Projects(
+id int,
+Name varchar(45),
+Description varchar(200),
+ImgPath varchar(30)
+);
+
+I can now use my node server to query the project table in portfolio.
+
+    The question is, what do I do with the record once I've queried it? Where does it
+go, how should I display it?
+    An idea I just had was to automate the process of creating project entries using
+a webscraper on my github repos page, but I think the problem is small enough that it
+can be done by hand, and also probably should be done by hand.
+    Another major question is, what's a project entry going to look like in the end?
+Will there be a page of projects where clicking on one either brings up a pop up or
+takes you to a project page? I'd say those details aren't so important right now,
+what's important is having a database that stores project records in some form and
+a webpage that lists all the projects by querying them from the database. So the next
+thing to do is to add an entry to the database, use our server to get it, then print
+it in console.
+
+    I wanted to use a web framework like vue for this project, but I realised that I
+don't have enough experience with web development to dive right into that sort of
+approach. So instead, I'm going to start off with the bare bones, just html and
+gradually try to gain a better understanding of what's going on. My first task is to
+make an html page (index.html) that, on load, sends a request to the server for the
+db records and the server responds with the records which can then be displayed by
+the page (I think I've misunderstood some things here, the server serves the page
+the page doesn't really do anything, the requests and functions are handled by the
+server).
+
+    It's not uncommon that I sit down and think I have no clue what I'm doing. I don't
+know if the way I'm doing things is the way that things are generally done, I'm just
+trying to work it all out for myself. And I guess that's also what's fun about it,
+as much as it can be frustrating.
+
+    When the server start up it should connect to the database once and only once,
+then the connection exists and we can use it however we want. Right now I've made it
+so that when a request is made to the page it automatically makes a request to the
+database. Now we're getting the records when we make the request, so all we need to
+do is display those records on the page.
+
+    The problem I'm facing at the moment is how to modify the html file itself when
+the records are loaded so that when the page loads it has however many entries as
+projects as were received. The conclusion I've reached is that I want to add li
+entries to the ul in index.html, and to do this with the node server would require
+jsdom. Maybe a function could be called from the page itself using a script and the
+dom could be manipulated directly, but I'm not sure.
+
+    It seems there are ways for the server to send a response to the client that
+will then cause it to modify the DOM, but I'm not sure that's what I want. As the
+page is loading I want the list to be populated with elements from the database.
+Now it seems to me that I could just make a page by hand, that I don't need a
+database whatsoever and everything could be hardcoded, and that would surely
+simplify the project a great deal, but do I want to remove the whole database aspect
+from it? Even if the database is unnecessary wouldn't it be worthwhile to play
+around with sql? And of course there are tons of websites where records are stored
+in a database and then loaded onto the page without any manual selection, videos,
+blog posts and the like, so clearly it's doable and it might be a worthwhile
+challenge to solve.
+
+    It seems the solution of using jsdom has been the easiest to implement. It took
+a fair bit of trawling on stack exchange, but I've found a way to edit my html files
+from my node server. First the file is read and the data used to make a jsdom dom
+object. Then elements can be edited however I want them to be edited, and finally
+I write the new file back into the same location (maybe should use a different
+location) which then gets served to the client. Right now all it does is erase
+everything from the body, but it shouldn't take too much work for it to display
+the records in a list 
