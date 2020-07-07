@@ -124,4 +124,24 @@ object. Then elements can be edited however I want them to be edited, and finall
 I write the new file back into the same location (maybe should use a different
 location) which then gets served to the client. Right now all it does is erase
 everything from the body, but it shouldn't take too much work for it to display
-the records in a list 
+the records in a list
+
+;********************************************************************************
+
+07/07/20:
+    I think the success of a project hinges on its consisting of small, achievable
+goals. Yesterday I was able to add implementation for editing my html files through
+the server because that's what I needed to do. It was a small goal and, while it
+took a couple of hours of experimentation and reading to accomplish, the completion
+of the goal was quite obvious. So I think the best thing to do before I start coding
+today is to come up with a goal, however small, that I could achieve this morning.
+If I can do this consistently enough then I imagine that eventually my project will
+be quite functional.
+
+    Today I'm gonna start by writing the projects to the html file. Then I might
+consider refactoring some things because the way server.js is going it's gonna
+look atrocious in no time at all. To write things to the site I'm going to need to
+develop a better understanding of jquery because the routine that I have now is an
+example from stack exchange (I think that's where I got it), so while I'm glad that
+it successfully allows me to edit files, I don't yet know how to edit files how I
+want to.
