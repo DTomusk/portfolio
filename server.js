@@ -23,6 +23,7 @@ var server = http.createServer(function(req, res) {
 		'Content-Type': 'text/html'
 	});
 	// making a request to this page makes a request to the database
+	// returns a promise that we can call then() on
 	get_records().then(function(results) {
 		write_records(results)
 	}).catch(function(err) {
@@ -43,6 +44,7 @@ function get_records() {
 			if (result === undefined) {
 				reject(new Error("Result is undefined"));
 			} else {
+				// if we get a proper response, then we resolve the promise by calling write_records
 				resolve(result);
 			}
 		})
@@ -61,10 +63,13 @@ function write_records(records) {
 		// $ is an alias to jQuery, $('body') is short for jquery(dom.window)('body')
 		const $ = jquery(dom.window);
 
+		$(".ProjectList").empty();
+
 		Object.keys(records).forEach(function(key) {
 			var row = records[key];
 			console.log(row.Name);
-			$(".ProjectList").append("<li><h2>" + row.Name + "</h2><p>" + row.Description + "</p></li>");
+			// current image not displaying correctly, also need to add image path to database
+			$(".ProjectList").append(' <li>\<h2>' + row.Name + '</h2>\<img src="./assets/happy.png" alt="Happiness">\<p>' + row.Description + '</p>\</li> ');
 		});
 
 		fs.writeFile('index.html', dom.serialize(), err => {

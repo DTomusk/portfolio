@@ -158,3 +158,56 @@ out why it's trying to add two of the same element). The jsdom append function
 keeps messing up the layout of my html so I need to look into that as well and, as
 I said, I need to do some refactoring. Although the first thing I ought to do is
 get a better understanding of js async stuff.
+
+;*******************************************************************************
+Async:
+    JavaScript is event driven, meaning the flow of the program is determined by
+events, such as user input, stuff happening on the server, and so on. Events
+respond to signals. In event driven programs, a main loop listens for events and
+when it hears an event it triggers a callback associated with that event. E.g.
+on click do this, the program listens to see if the thing has been clicked and
+when it is the callback function to handle the response is called.
+
+    In JS, functions are objects, and so functions can take other functions as
+arguments. E.g.
+
+    function do_something(callback) {
+        blah
+        blah
+        callback()
+    }
+
+    callback is a function and it gets called by do_something once do something
+has done everything else it's set out to do. Functions can be defined within the
+argument braces themselves:
+
+    do_something(arg1, function(this, that) => {
+        bing;
+        bong;
+    });
+
+    A common callback style is the error-first callback, where we check to see if
+there's an error first, and if not then we carry on. (I've used this a couple of
+times in server.js).
+
+    Callback hell or the pyramid of doom is a coding style where callback functions
+are deeply nested leading to very messy and confusing coding. One way to solve this
+is to make every function a standalone one, but that can lead to very jumpy code
+that moves around between different functions a lot.
+
+    Producing code does something that takes an amount of time. Consuming code
+needs to use the results of the producing code for them to run. A promise links
+producing and consuming code. A promise makes the result of the producing code
+available once the producing code has finished running so anyone can use that
+result
+
+    A promise is pending when it hasn't finished running and settled once it is.
+A promise will either resolve or reject, i.e. succeed or fail in doing what it
+needs to. You can call then on promise objects to specify what to do once the
+promise has settled. catch is shorthand for then that only cares about a rejected
+promise. Finally runs on a promise once it has settled, regardless of resolution
+or rejection.
+
+    In a promise chain, you can throw then functions on top of each other so the
+result of the promise is passed through the chain of then handlers. Then returns
+a promise, and a promise can have then called on it.
