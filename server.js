@@ -23,9 +23,10 @@ var server = http.createServer(function(req, res) {
 		'Content-Type': 'text/html'
 	});
 	// making a request to this page makes a request to the database
-	//
-	get_records(function() {
-		write_records()
+	get_records().then(function(results) {
+		write_records(results)
+	}).catch(function(err) {
+		console.log("Promise rejection: " + err);
 	});
 	var readStream = fs.createReadStream('./index.html', 'utf8'); // serve index.html
 	readStream.pipe(res);
@@ -33,25 +34,41 @@ var server = http.createServer(function(req, res) {
 
 server.listen(8080);
 
-function get_records(callback) {
-	con.query("SELECT * FROM projects", function(err, result) {
-		if (err) throw err;
-		console.log("Result: ");
-		console.log(result);
-		callback(result);
-	});
+function get_records() {
+	return new Promise(function(resolve, reject) {
+		con.query("SELECT * FROM projects", function(err, result) {
+			if (err) throw err;
+			console.log("Result: ");
+			console.log(result);
+			if (result === undefined) {
+				reject(new Error("Result is undefined"));
+			} else {
+				resolve(result);
+			}
+		})
+	})
 }
 
 // only runs once get records has finished
 function write_records(records) {
 	console.log("Write records called");
+	console.log(records);
 	// like to manipulate the dom by adding elements to our list
 	// can't access the dom directly, but can use jsdom and jquery
 	fs.readFile('index.html', 'utf8', (err, data) => {
+		if (err) throw err;
 		const dom = new jsdom.JSDOM(data);
+		// $ is an alias to jQuery, $('body') is short for jquery(dom.window)('body')
 		const $ = jquery(dom.window);
-		$('body').html('');
+
+		Object.keys(records).forEach(function(key) {
+			var row = records[key];
+			console.log(row.Name);
+			$(".ProjectList").append("<li><h2>" + row.Name + "</h2><p>" + row.Description + "</p></li>");
+		});
+
 		fs.writeFile('index.html', dom.serialize(), err => {
+			if (err) throw err;
 			console.log('Wrote new dom stuff');
 		});
 	});

@@ -145,3 +145,16 @@ develop a better understanding of jquery because the routine that I have now is 
 example from stack exchange (I think that's where I got it), so while I'm glad that
 it successfully allows me to edit files, I don't yet know how to edit files how I
 want to.
+
+    My main issue it seems is that the records aren't being passed to write records
+from get records. When I log them in write records the object is undefined.
+
+    Ok, so looks like there's a whole bunch of stuff that I need to look into in
+terms of async, promises, .then and that kind of stuff. I've gotten it writing
+the records to the page but it writes them all multiple times (twice it seems). I
+think I need to empty the list before adding any elements to it again, and I need
+to make sure that one element doesn't get added twice (but I should also figure
+out why it's trying to add two of the same element). The jsdom append function
+keeps messing up the layout of my html so I need to look into that as well and, as
+I said, I need to do some refactoring. Although the first thing I ought to do is
+get a better understanding of js async stuff.
