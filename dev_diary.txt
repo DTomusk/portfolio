@@ -211,3 +211,36 @@ or rejection.
     In a promise chain, you can throw then functions on top of each other so the
 result of the promise is passed through the chain of then handlers. Then returns
 a promise, and a promise can have then called on it.
+
+;*******************************************************************************
+08/07/20
+    Today I want to focus on the structure of the program, how things are laid
+out and whatnot. Where should functions go, how should functions be grouped, that
+sort of thing. I want the main server loop in server.js, that's for sure, but that
+loop is going to see a lot of expansion in very little time as requests change and
+responses need to be more specific. E.g. the database stuff shouldn't be done
+every time there's a request. If this whole program revolves around the server loop
+then how are things going to be divided up? One thing that I need to think about is
+what needs to be done before the server gets spun up, do we need to connect to the
+database before that? Possibly. Does it need to be guaranteed to have happened
+before we start using the server?
+
+    One thing that should be worthwhile is to change the server logic so it performs
+actions based on the extension to the url (I think this is called routing or at
+least has something to do with it but I need to look into it). That way, the
+database stuff only gets called when the page that requires the project entries is
+requested.
+
+    Should the logic of each separate page be stored in a different file? I don't
+know, but I should try it to see how it goes.
+
+    I've moved all the project page logic to project.js. I've had to include some
+require statements there that are already in server.js because they need to perform
+some function there as well, oh well. It feels a bit messy, but server.js is a lot
+nicer now. Right now I'm connecting to the database in server.js which I'm not sure
+is the right thing to do as so far we only need to database on the projects page,
+can we expect that that's how things will stay? Do we need to have a persistent
+connection to the database? If not, would we be making a new connection every time
+we accessed the projects page? I think the best thing to do is keep the database
+connection as it is. I don't think there's much lost with having a possibly
+unnecessary database connection when I'm not sure what the alternative would be.

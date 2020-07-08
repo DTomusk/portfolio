@@ -1,0 +1,25 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Web portfolio",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DTomusk/portfolio.git"
+  },
+  "author": "David Tomusk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DTomusk/portfolio/issues"
+  },
+  "homepage": "https://github.com/DTomusk/portfolio#readme",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "jsdom": "^16.2.2",
+    "mysql": "^2.18.1"
+  }
+}
