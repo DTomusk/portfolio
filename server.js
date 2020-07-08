@@ -1,6 +1,7 @@
 var mysql = require('mysql'), // needed for accessing the database
 	http = require('http'), // nneded to create the server itself
 	fs = require('fs'), // needed to access files in the directory, such as web pages
+	express = require('express'),
 	projects = require('./pages/projects.js');
 
 var con = mysql.createConnection({ // log into database

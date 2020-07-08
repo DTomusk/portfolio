@@ -244,3 +244,19 @@ connection to the database? If not, would we be making a new connection every ti
 we accessed the projects page? I think the best thing to do is keep the database
 connection as it is. I don't think there's much lost with having a possibly
 unnecessary database connection when I'm not sure what the alternative would be.
+
+    I'm not a fan of SQL
+
+    I've added github links to the projects and I'm not sure where to go from here.
+There's plenty of directions available. index.html should be the homepage, projects
+should have its own page. There should be a way to get from the homepage to
+projects. I need to do more work on routing, specifically adding a 404 and maybe
+other things.
+
+    It seems people usually pair node with express and express handles routing,
+it seems possible to do routing without it but it might be easier with it. The
+question is, do I want another module? I guess there wouldn't be much cost to it,
+it just feels odd that I'm having to use so many modules (to date: jsdom, jquery,
+mysql, fs, http, (actually those last two are pretty necessary, and so is mysql,
+and the first two are needed for updating our html, so it doesn't seem like too big
+a deal)). 
