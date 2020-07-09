@@ -259,4 +259,31 @@ question is, do I want another module? I guess there wouldn't be much cost to it
 it just feels odd that I'm having to use so many modules (to date: jsdom, jquery,
 mysql, fs, http, (actually those last two are pretty necessary, and so is mysql,
 and the first two are needed for updating our html, so it doesn't seem like too big
-a deal)). 
+a deal)).
+
+;********************************************************************************
+09/07/20
+    A big part of the challenge of programming is actually understanding the
+requirements of the problem, it's an easy thing to say "oh, I want to write a
+website", and it's easy to set up a basic server that renders html, but the more
+you work on it the more you realise that you have to do. There are thousands of tiny
+little steps between serving a plain html file to localhost and hosting a modern
+website. And that's what makes the first time around so hard, because you have to
+figure out what those requirements are, once you've made one website from the
+ground up, it suddenly becomes much easier to make any website, because you
+understand the scope of the problem. I'm at that stage where I'm only slowly figuring
+out what the actual scope is.
+
+    Today I'm gonna switch my routing over to express and see what I'll do from
+there.
+;********************************************************************************
+Handling http requests:
+    Routes forward http requests to the appropriate controller functions.
+    Controller functions get any requested data from models (which are connected
+to the database), create an HTML page displaying that data and return it to the
+user.
+    Views are templates used by the controllers to render data
+;********************************************************************************
+Routing:
+    Routes take an HTTP verb (get, post, put, delete, basically CRUD), a URL path
+and a function to handle that path.
