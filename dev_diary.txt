@@ -287,3 +287,28 @@ user.
 Routing:
     Routes take an HTTP verb (get, post, put, delete, basically CRUD), a URL path
 and a function to handle that path.
+    We can use an express app that listens on a port to check what type of request
+is being sent and handle it accordingly. E.g. app.get('/', function...) tells the
+server what to do when the url has no extension and the request is a get type
+;********************************************************************************
+    The more I work on this the less verbose it gets because I discover more and
+more that all my problems have already been solved by some module or framework. It's
+great, but it also looks like I've done less work than I have. I guess that's the
+advantage of github and a diary, even though right now it looks very minimal, a
+lot had to be done, learned, and redone to get here.
+
+    I'm at a point where I'm not sure which direction to go in next. I could dive
+into CSS, rendering engines, and stuff like that to gussy up my admittedly plain
+website, or I could work on adding pages for each individual project, or maybe
+look more into http stuff and middleware, cookies, authentication and whatnot, or
+whatever have you. It seems that the actual functionality of my portfolio site isn't
+that complex (and it shouldn't be either), so now I'm sort of in an open ended
+place where I could go in any of many directions. All I really have to do is pick
+one.
+
+    It's possible that I could replace the jquery jsdom business with some kind
+of template files that get filled in with data from the database. A quick search
+shows that pug implements iteration so we can add a list that's however big we
+want it to be (for our projects). As far as I can tell, that means we don't have
+to use jquery and jsdom anymore (or at least for anything we've implemented so
+far).

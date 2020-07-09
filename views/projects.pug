@@ -1,0 +1,12 @@
+html
+    head
+        title= 'David'
+    body
+        h1= 'David Tomusk'
+        h2= 'Projects'
+        ul
+            each record in records ? records : ['No records found']
+                li
+                    p= record.Name
+                    p= record.Description
+                    a(href=record.RepoPath)= GitHub

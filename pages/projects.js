@@ -28,7 +28,7 @@ function get_records(con) {
 // html by adding elements for each record and then writes that dom back to
 // index.html
 function write_records(records) {
-	fs.readFile('index.html', 'utf8', (err, data) => {
+	fs.readFile('pages/projects.html', 'utf8', (err, data) => {
 		if (err) throw err;
 		const dom = new jsdom.JSDOM(data);
 		// $ is an alias to jQuery, $('body') is short for jquery(dom.window)('body')
@@ -48,7 +48,7 @@ function write_records(records) {
                 </li> ');
 		});
 
-		fs.writeFile('index.html', dom.serialize(), err => {
+		fs.writeFile('pages/projects.html', dom.serialize(), err => {
 			if (err) throw err;
 		});
 	});

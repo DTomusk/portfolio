@@ -1,8 +1,9 @@
 var mysql = require('mysql'), // needed for accessing the database
-	http = require('http'), // nneded to create the server itself
 	fs = require('fs'), // needed to access files in the directory, such as web pages
 	express = require('express'),
-	projects = require('./pages/projects.js');
+	projects = require('./pages/projects.js'),
+	morgan = require('morgan'),
+	pug = require('pug');
 
 var app = express();
 
@@ -19,13 +20,20 @@ con.connect(function(err) {
 	console.log("Connected to database")
 })
 
+// logs all http requests in the console
+app.use(morgan('combined'));
+app.set('view engine', 'pug');
+
 app.get('/', function(req, res) {
-	res.send("What's up");
+	res.render('index', {});
 })
 
 app.get('/projects', function(req, res) {
-	projects.handle_records(con);
-	write_page(res, './index.html');
+	let records = projects.handle_records(con);
+	res.render('projects', {
+		records
+	});
+	//write_page(res, './pages/projects.html');
 })
 
 app.listen(8080, function() {
