@@ -1,7 +1,6 @@
 var mysql = require('mysql'), // needed for accessing the database
 	fs = require('fs'), // needed to access files in the directory, such as web pages
 	express = require('express'),
-	projects = require('./pages/projects.js'),
 	morgan = require('morgan'),
 	pug = require('pug');
 
@@ -29,11 +28,30 @@ app.get('/', function(req, res) {
 })
 
 app.get('/projects', function(req, res) {
-	let records = projects.handle_records(con);
-	res.render('projects', {
-		records
+	var records = [];
+
+	con.query("SELECT * FROM projects", function(err, rows, fields) {
+		if (err) {
+			// that looks more professional, could render a 500 error page
+			res.status(500).json({
+				"status_code": 500,
+				"status_message": "internal server error"
+			});
+		} else {
+			for (const [index, record] of rows.entries()) {
+				var entry = {
+					'Name': rows[index].Name,
+					'Description': rows[index].Description,
+					'RepoPath': rows[index].RepoPath,
+				};
+				records.push(entry);
+			}
+		}
+
+		res.render('projects', {
+			"records": records
+		});
 	});
-	//write_page(res, './pages/projects.html');
 })
 
 app.listen(8080, function() {
