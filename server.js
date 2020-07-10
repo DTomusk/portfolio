@@ -21,6 +21,7 @@ con.connect(function(err) {
 
 // logs all http requests in the console
 app.use(morgan('combined'));
+// use pug files in the view folder as templates for sites
 app.set('view engine', 'pug');
 
 app.get('/', function(req, res) {

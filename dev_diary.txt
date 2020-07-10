@@ -312,3 +312,14 @@ shows that pug implements iteration so we can add a list that's however big we
 want it to be (for our projects). As far as I can tell, that means we don't have
 to use jquery and jsdom anymore (or at least for anything we've implemented so
 far).
+
+    Turns out templating could in fact solve all those problems I was having
+earlier with changing the dom after getting data from the server. All my work
+recently seems to have reduced the amount of code my project consists of. Of
+course that makes sense, it would have to, it's just in some ways frustrating that
+I went down several roads that were first frustrating in and of themselves, only
+to later find that they didn't have to be done at all. But I guess it is what it
+is. At least in trying to solve those problems myself, I actually found out what
+the problems I would face would be and hence what the modules I now use would also
+solve. If I ever need to make a website from scratch again, I can get up and
+running a lot faster.

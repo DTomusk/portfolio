@@ -1,0 +1,38 @@
+h1, p, a {
+    color: #05386B;
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    background-color: #FBEEC1;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: auto;
+}
+
+a:link {
+    background-color: #3FEEE6;
+}
+
+a:visited {
+    background-color: #8EE4AF;
+}
+
+a:hover {
+    background-color: #FFFFFF;
+}
+
+body {
+    background-color: #DAAD86;
+}
+
+div {
+    width: 400px;
+    border: 15px solid #659DBD;
+    padding: 30px;
+    margin: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
