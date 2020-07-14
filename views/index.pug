@@ -6,25 +6,15 @@ html
     body
         div.heading
             h1= 'David Tomusk'
-        div
-            a(href='/projects') Projects
+        div.sub
+            h2= 'Projects'
         div.content_section
             ul
-                li
-                    div.entry
-                        p= 'Hey'
-                li
-                    div.entry
-                        p= "What's up?"
-                li
-                    div.entry
-                        p= 'Hello'
-                li
-                    div.entry
-                        p= 'Seen'
-                li
-                    div.entry
-                        p= "your"
-                li
-                    div.entry
-                        p= 'pretty'
+                each record in records
+                    li
+                        a(href='#')
+                            div.content
+                                img.img(src='/dorime.jpg')
+                                h3= record.Name
+                                p= record.Description
+        div.footer

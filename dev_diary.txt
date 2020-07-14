@@ -323,3 +323,43 @@ is. At least in trying to solve those problems myself, I actually found out what
 the problems I would face would be and hence what the modules I now use would also
 solve. If I ever need to make a website from scratch again, I can get up and
 running a lot faster.
+;********************************************************************************
+10/07/20
+    I've finally bitten the design bullet and started looking into css. It all
+seems pretty intuitive and easy, the problem is that I don't have an exact idea of
+what I want the page to look like. My current idea is to do something like tumblr,
+it's a one page portfolio where all the entries are little boxes that contain a
+picture and a title or something, and clicking on that box will bring up a pop up
+that has a full description as well as a link to github and so on. Of course I don't
+yet know how to do all that, but it doesn't look to be hard to learn. I don't know
+if I'll need an extra engine for css or if I'll end up using a framework like node
+or react, for now it doesn't look like I need them but I'll see what problems crop
+up.
+
+    For the page I want to make little boxes all of the same size that include a
+snippet of the content of each project. The projects page is no longer required, in
+this design everything is on one page and comes up as a pop up.
+
+    An interesting exercise with web development would be to see if you could
+replicate already existing websites.
+;********************************************************************************
+14/07/20
+    After a few days of hiking and playing around with CSS, I've come back to the
+main project. I feel a lot more confident this time around in regards to CSS
+because I have a better understanding of how it thinks and behaves. Because I've
+learned to implement different components myself, adding them to my own page has
+been a breeze. There's still some elements that are misaligned and some design
+that I'm not sure about, but I'm happy with the new progress I've been making.
+The website is very bare bones, but I can't think of much else to include. I want
+to have pop ups jump up when you click on a project that gives a full description
+of what's going on, but other than that there's not many features to include
+(maybe also a way to sort projects and display only ones with certain tags).
+
+    To be completely honest, the site looks bad, it looks cheap, but I don't know
+how I could improve it. I'd have to just browse around a bit and see what other
+websites do that looks better, because I want the page to look good, but I don't
+feel like I have a design vision.
+
+    I just removed the scaling on the cards on hover because I feel it was a bit
+too much. The search bar on google just increases the box shadow on hover so I
+decided to do that as well. 

@@ -1,13 +1,22 @@
 .heading {
     margin: auto;
-    width: 70%;
-    height: 30%;
+    width: 100%;
+    height: 50%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: Arial, sans-serif;
     font-size: 40px;
+
+    background-color: darkblue;
+    color: white;
+}
+
+.sub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 ul, li {
@@ -15,20 +24,12 @@ ul, li {
     zoom: 1;
 }
 
-.content_section {
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    width: 90%;
-    height: 200%;
+h3, p, h2 {
+    font-family: Arial, sans-serif;
 }
 
-.entry {
-    border: 2px solid black;
-    padding: 10px;
-    width: 200px;
-    height: 200px;
-    margin: 20px;
+a {
+    text-decoration: none;
 }
 
 a:link {
@@ -37,6 +38,7 @@ a:link {
 
 a:visited {
     background-color: #8EE4AF;
+    color: black;
 }
 
 a:hover {
@@ -45,10 +47,51 @@ a:hover {
 
 body {
     background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
 }
 
+.content_section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    background-color: #f0f0f0;
+}
 
+.content {
+    width: 220px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    text-align: center;
+    background-color: white;
+    flex-wrap: wrap;
+    box-shadow: 2px 7px 3px 0px rgba(0,0,0,0.3);
+    /*transition: all 0.3s ease-in-out;*/
+    padding: 10px;
+    margin: 30px;
+    border: solid grey;
+    border-width: 2px;
+}
 
-ul {
-    list-style-type: none;
+.content:hover {
+    /*transform: scale(1.03);*/
+    box-shadow: 4px 10px 3px 0px rgba(0,0,0,0.25);
+}
+
+.img {
+    width: inherit;
+    height: 60%;
+    background-color: white;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.footer {
+    width: 100%;
+    height: 200px;
+    background-color: black;
 }

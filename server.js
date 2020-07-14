@@ -24,11 +24,10 @@ app.use(morgan('combined'));
 // use pug files in the view folder as templates for sites
 app.set('view engine', 'pug');
 
-app.get('/', function(req, res) {
-	res.render('index', {});
-})
+app.use(express.static('assets'));
 
-app.get('/projects', function(req, res) {
+app.get('/', function(req, res) {
+
 	var records = [];
 
 	con.query("SELECT * FROM projects", function(err, rows, fields) {
@@ -49,7 +48,9 @@ app.get('/projects', function(req, res) {
 			}
 		}
 
-		res.render('projects', {
+		console.log(records);
+
+		res.render('index', {
 			"records": records
 		});
 	});
