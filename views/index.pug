@@ -4,6 +4,11 @@ html
         style
             include ./style.css
     body
+        div#info(onclick='closeinfo()')
+            div#closebtn
+            div#project
+                p= "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Sagittis vitae et leo duis ut diam. Vestibulum morbi blandit cursus risus at. Et pharetra pharetra massa massa ultricies mi. Turpis egestas integer eget aliquet nibh praesent tristique magna. Fusce id velit ut tortor pretium viverra suspendisse potenti. Nulla facilisi morbi tempus iaculis urna. Amet mattis vulputate enim nulla. Cursus eget nunc scelerisque viverra mauris in aliquam sem."
+                br
         div.heading
             h1= 'David Tomusk'
         div.sub
@@ -12,9 +17,15 @@ html
             ul
                 each record in records
                     li
-                        a(href='#')
-                            div.content
-                                img.img(src='/dorime.jpg')
-                                h3= record.Name
-                                p= record.Description
+                        div.content(onclick='popup()')
+                            img.img(src='/dorime.jpg')
+                            h3= record.Name
+                            p= record.Description
         div.footer
+        script.
+            function closeinfo() {
+                document.getElementById('info').style.display = 'none';
+            }
+            function popup() {
+                document.getElementById('info').style.display = 'flex';
+            }

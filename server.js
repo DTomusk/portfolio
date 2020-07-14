@@ -59,7 +59,3 @@ app.get('/', function(req, res) {
 app.listen(8080, function() {
 	console.log("Listening on 8080");
 });
-
-function write_page(res, page) {
-	fs.createReadStream(page, 'utf8').pipe(res);
-}
