@@ -107,6 +107,10 @@ body {
     justify-content: center;
 }
 
+.show {
+    display: flex !important;
+}
+
 #closebtn {
     display: inherit;
     position: absolute;
@@ -122,7 +126,6 @@ body {
 }
 
 #project {
-    position: absolute;
     width: 50%;
     height: 50%;
     background-color: white;

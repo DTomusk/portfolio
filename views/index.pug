@@ -4,8 +4,7 @@ html
         style
             include ./style.css
     body
-        div#info(onclick='closeinfo()')
-            div#closebtn
+        div#info
             div#project
                 p= "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Sagittis vitae et leo duis ut diam. Vestibulum morbi blandit cursus risus at. Et pharetra pharetra massa massa ultricies mi. Turpis egestas integer eget aliquet nibh praesent tristique magna. Fusce id velit ut tortor pretium viverra suspendisse potenti. Nulla facilisi morbi tempus iaculis urna. Amet mattis vulputate enim nulla. Cursus eget nunc scelerisque viverra mauris in aliquam sem."
                 br
@@ -17,15 +16,24 @@ html
             ul
                 each record in records
                     li
-                        div.content(onclick='popup()')
+                        div.content
                             img.img(src='/dorime.jpg')
                             h3= record.Name
                             p= record.Description
         div.footer
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
         script.
-            function closeinfo() {
-                document.getElementById('info').style.display = 'none';
-            }
-            function popup() {
-                document.getElementById('info').style.display = 'flex';
-            }
+            $(document).ready(function(){
+                $(".content").click(function() {
+                    if ($("#info").is(":hidden")) {
+                        $("#info").addClass('show');
+                    }
+                });
+                $("#info").click(function(event) {
+                    if ($("#info").is(":visible")) {
+                        if (!$("#project").is(event.target) && $("#project").has(event.target).length === 0) {
+                            $("#info").removeClass('show');
+                        }
+                    }
+                })
+            });
