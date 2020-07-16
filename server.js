@@ -2,7 +2,8 @@ var mysql = require('mysql'), // needed for accessing the database
 	fs = require('fs'), // needed to access files in the directory, such as web pages
 	express = require('express'),
 	morgan = require('morgan'),
-	pug = require('pug');
+	pug = require('pug'),
+	bodyParser = require('body-parser');
 
 var app = express();
 
@@ -25,6 +26,10 @@ app.use(morgan('combined'));
 app.set('view engine', 'pug');
 
 app.use(express.static('assets'));
+
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 app.get('/', function(req, res) {
 
@@ -56,6 +61,24 @@ app.get('/', function(req, res) {
 	});
 })
 
-app.listen(8080, function() {
-	console.log("Listening on 8080");
-});
+app.get('/admin', function(req, res) {
+	res.render('admin', {});
+})
+
+app.post('/admin', function(req, res) {
+	console.log("Posted");
+	console.log(req.body);
+	var name = req.body.projectName;
+	var sDesc = req.body.shortDescription;
+	var gLink = req.body.gitLink;
+	var iPath = req.body.imgPath;
+	var lDesc = req.body.longDescription;
+	console.log(name + sDesc + gLink + iPath + lDesc);
+	res.end("Yes");
+	// need to find the highest primary key in projects and set pk to the next
+	// then we make a con put to add the new entry to the database
+	// we might need to make a delete just so we don't end up adding a bunch of test projects
+})
+
+app.listen(8080, () =>
+	console.log("Listening on 8080"));

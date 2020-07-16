@@ -1,0 +1,20 @@
+html
+    head
+        title= 'Admin'
+        style
+            include ./style.css
+    body
+        div.random
+            h2= 'Add new project entry'
+            form(action="/admin" method="post")
+                input(type="text" placeholder="Project Name" name="projectName")
+                br
+                input(type="text" placeholder="Short Description" name="shortDescription")
+                br
+                input(type="text" placeholder="GitHub link" name="gitLink")
+                br
+                input(type="text" placeholder="Image path" name="imgPath")
+                br
+                input(type="text" placeholder="Long Description" name="longDescription")
+                br
+                button= 'Save'

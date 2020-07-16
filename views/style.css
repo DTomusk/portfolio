@@ -132,3 +132,15 @@ body {
     padding: 20px;
     border-radius: 10px;
 }
+
+input {
+    margin: 5px;
+}
+
+.random {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}

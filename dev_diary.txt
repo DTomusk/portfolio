@@ -362,4 +362,15 @@ feel like I have a design vision.
 
     I just removed the scaling on the cards on hover because I feel it was a bit
 too much. The search bar on google just increases the box shadow on hover so I
-decided to do that as well. 
+decided to do that as well.
+;********************************************************************************
+15/07/20
+    I've had to add jquery to my templates to properly open and close the info
+pop up when it's needed. At least I no longer need to write document.getElementById
+or anything like that anymore. I think the next step is to make custom info screens
+for the different projects and make it so the clicking on a project will open the
+right info page. I might also need to add an admin page where I can use forms to
+add entries to my database, mostly because working with forms seems to be a useful
+activity and also because I don't want to deal with MySQL directly. If I can
+abstract it out a bit then I can just put some details in the page and the server
+will format the right SQL for me. 
