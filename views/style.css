@@ -24,8 +24,9 @@ ul, li {
     zoom: 1;
 }
 
-h3, p, h2 {
+h3, p, h2, h1 {
     font-family: Arial, sans-serif;
+    text-align: center;
 }
 
 a {
@@ -147,4 +148,11 @@ input {
 
 button {
     margin: 20px;
+}
+
+li {
+    border: solid black;
+    border-width: 2px;
+    margin: 10px;
+    padding: 5px;
 }

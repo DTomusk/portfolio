@@ -44,7 +44,12 @@ app.get('/', function(req, res) {
 })
 
 app.get('/admin', function(req, res) {
-	res.render('admin', {});
+	get_projects(con, res).then(
+		result => res.render('admin', {
+			"records": result
+		}),
+		error => fivehundred(res)
+	)
 })
 
 // admin should list all the projects so you can edit/delete them
@@ -63,13 +68,20 @@ app.post('/admin', function(req, res) {
 	get_projects(con, res).then(
 		result => get_max(result).then(
 			result => insert_project(con, res, result, entry).then(
-				result => res.end("Posted"),
+				result => res.render('admin', {
+					"success": "New project added successfully"
+				}),
 				error => fivehundred(res)
 			),
 			error => fivehundred(res)
 		),
 		error => fivehundred(res)
 	)
+})
+
+app.get('*', function(req, res) {
+	res.status(404);
+	res.render('404', {});
 })
 
 app.listen(8080, () =>
@@ -131,9 +143,6 @@ function insert_project(con, res, id, project) {
 }
 
 function fivehundred(res) {
-	res.status(500).json({
-		"status_code": 500,
-		"status_message": "internal server error"
-	});
-	res.end("Nope");
+	res.status(500);
+	res.render("500", {});
 }

@@ -18,16 +18,18 @@ html
                 input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000")
                 br
                 button= 'Save'
+            if success
+                p= success
         div.random
             h2= 'Edit projects'
             ul
                 each record in records ? records : ['No records found']
                     li
-                        p=record.id
-                        p=record.Name
-                        p=record.Description
-                        p=record.RepoPath
-                        p=record.ImgPath
-                        p=record.Synopsis
+                        p= "id: " + record.id
+                        p= "Project name: " + record.Name
+                        p= "Summary: " + record.Description
+                        a(href=record.RepoPath)= "GitHub Link: " + record.RepoPath
+                        p= "Image Path: " + record.ImgPath
+                        p= "Description: " + record.Synopsis
                         button= 'Edit'
                         button= 'Delete'
