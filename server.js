@@ -73,11 +73,36 @@ app.post('/admin', function(req, res) {
 	var gLink = req.body.gitLink;
 	var iPath = req.body.imgPath;
 	var lDesc = req.body.longDescription;
-	console.log(name + sDesc + gLink + iPath + lDesc);
-	res.end("Yes");
-	// need to find the highest primary key in projects and set pk to the next
-	// then we make a con put to add the new entry to the database
-	// we might need to make a delete just so we don't end up adding a bunch of test projects
+	con.query("SELECT id FROM projects", function(err, rows, fields) {
+		if (err) {
+			res.status(500).json({
+				"status_code": 500,
+				"status_message": "internal server error, select failed"
+			});
+			res.end("Nope");
+		} else {
+			var max = 0;
+			for (const [index, record] of rows.entries()) {
+				if (parseInt(rows[index].id) > max) {
+					max = parseInt(rows[index].id);
+				}
+			}
+			var id = max + 1;
+			con.query("INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + "," + name + "," + sDesc + "," + gLink + "," + iPath + "," + lDesc + ")", function(err) {
+				if (err) {
+					res.status(500).json({
+						"status_code": 500,
+						"status_message": "internal server error, insert failed"
+					});
+					res.end("Nope");
+				} else {
+					res.end("Yup");
+				}
+			});
+
+		}
+
+	})
 })
 
 app.listen(8080, () =>

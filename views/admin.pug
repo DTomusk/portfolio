@@ -7,14 +7,14 @@ html
         div.random
             h2= 'Add new project entry'
             form(action="/admin" method="post")
-                input(type="text" placeholder="Project Name" name="projectName")
+                input(type="text" placeholder="Project Name" name="projectName" maxlength="45")
                 br
-                input(type="text" placeholder="Short Description" name="shortDescription")
+                input(type="text" placeholder="Short Description" name="shortDescription" maxlength="200")
                 br
-                input(type="text" placeholder="GitHub link" name="gitLink")
+                input(type="text" placeholder="GitHub link" name="gitLink" maxlength="50")
                 br
-                input(type="text" placeholder="Image path" name="imgPath")
+                input(type="text" placeholder="Image path" name="imgPath" maxlength="30")
                 br
-                input(type="text" placeholder="Long Description" name="longDescription")
+                input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000")
                 br
                 button= 'Save'
