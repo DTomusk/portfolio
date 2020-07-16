@@ -51,19 +51,24 @@ app.get('/admin', function(req, res) {
 app.post('/admin', function(req, res) {
 	console.log("Posted");
 	console.log(req.body);
-	var name = req.body.projectName;
-	var sDesc = req.body.shortDescription;
-	var gLink = req.body.gitLink;
-	var iPath = req.body.imgPath;
-	var lDesc = req.body.longDescription;
+	var entry = {
+		'Name': req.body.projectName,
+		'Description': req.body.shortDescription,
+		'RepoPath': req.body.gitLink,
+		'ImgPath': req.body.imgPath,
+		'Synopsis': req.body.longDescription
+	};
 
 	// I don't think this nesting is idiomatic
 	get_projects(con, res).then(
 		result => get_max(result).then(
-			result => insert_project(con, res, result),
-			error => fivehundred()
+			result => insert_project(con, res, result, entry).then(
+				result => res.end("Posted"),
+				error => fivehundred(res)
+			),
+			error => fivehundred(res)
 		),
-		error => fivehundred()
+		error => fivehundred(res)
 	)
 })
 
@@ -98,25 +103,37 @@ function get_projects(con, res) {
 function get_max(results) {
 	return new Promise(function(resolve, reject) {
 		var max = 0;
-		for (const project in results) {
+		for (const project of results) {
 			var id = parseInt(project['id']);
 			if (id > max) {
 				max = id;
 			}
 		}
-		var id = max + 1;
-		resolve(id);
+		max += 1;
+		console.log("Next ID " + max);
+		resolve(max);
 	})
 }
 
-function insert_project(con, res, project) {
-	res.end("We made it");
+function insert_project(con, res, id, project) {
+	return new Promise(function(resolve, reject) {
+		console.log(id);
+		console.log(project);
+		con.query("INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + "," + project['Name'] + "," + project['Description'] + "," + project['RepoPath'] + "," + project['ImgPath'] + "," + project['Synopsis'] + ")", function(err) {
+			if (err) {
+				reject();
+			} else {
+				resolve();
+			}
+		});
+
+	})
 }
 
 function fivehundred(res) {
 	res.status(500).json({
 		"status_code": 500,
-		"status_message": "internal server error, select failed"
+		"status_message": "internal server error"
 	});
 	res.end("Nope");
 }
