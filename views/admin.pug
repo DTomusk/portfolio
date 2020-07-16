@@ -18,3 +18,16 @@ html
                 input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000")
                 br
                 button= 'Save'
+        div.random
+            h2= 'Edit projects'
+            ul
+                each record in records ? records : ['No records found']
+                    li
+                        p=record.id
+                        p=record.Name
+                        p=record.Description
+                        p=record.RepoPath
+                        p=record.ImgPath
+                        p=record.Synopsis
+                        button= 'Edit'
+                        button= 'Delete'

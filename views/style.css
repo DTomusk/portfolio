@@ -144,3 +144,7 @@ input {
     flex-wrap: wrap;
     flex-direction: column;
 }
+
+button {
+    margin: 20px;
+}

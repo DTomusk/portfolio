@@ -14,7 +14,7 @@ html
             h2= 'Projects'
         div.content_section
             ul
-                each record in records
+                each record in records ? records : ['No records found']
                     li
                         div.content
                             img.img(src='/dorime.jpg')

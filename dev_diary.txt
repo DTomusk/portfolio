@@ -373,4 +373,22 @@ right info page. I might also need to add an admin page where I can use forms to
 add entries to my database, mostly because working with forms seems to be a useful
 activity and also because I don't want to deal with MySQL directly. If I can
 abstract it out a bit then I can just put some details in the page and the server
-will format the right SQL for me. 
+will format the right SQL for me.
+;********************************************************************************
+16/07/20
+    Making an admin page to make the editing the database easier. Need to add
+checks before sending the request to detect invalid input (otherwise you get an
+unexplained internal server error). Need to also be able to edit projects from
+the admin page, so I can change values for entries and delete them if necessary.
+It actually feels pretty cool being able to edit the database from inside my
+browser, I think I quite enjoy doing this kind of stuff. Instead of having to
+write tedious SQL, I can just fill out some forms on a page and the syntax is
+handled behind the scenes.
+
+    Other than the admin page, what needs to happen now is for the project pop ups to
+have the right information instead of just Lorem Ipsum. That shouldn't be too
+hard to do, but I'll get to it once I've ironed out the admin-y stuff. (Which
+I think will include promises because there are con functions that I need to use
+in different places and I don't just want to nest them repeatedly (speaking of,
+I think I finally understand why promises are useful and what they prevent from
+happening)).

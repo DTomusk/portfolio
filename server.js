@@ -32,39 +32,22 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-
-	var records = [];
-
-	con.query("SELECT * FROM projects", function(err, rows, fields) {
-		if (err) {
-			// that looks more professional, could render a 500 error page
-			res.status(500).json({
-				"status_code": 500,
-				"status_message": "internal server error"
+	get_projects(con, res).then(
+		result => {
+			console.log(result);
+			res.render('index', {
+				"records": result
 			});
-		} else {
-			for (const [index, record] of rows.entries()) {
-				var entry = {
-					'Name': rows[index].Name,
-					'Description': rows[index].Description,
-					'RepoPath': rows[index].RepoPath,
-				};
-				records.push(entry);
-			}
-		}
-
-		console.log(records);
-
-		res.render('index', {
-			"records": records
-		});
-	});
+		},
+		error => fivehundred(res)
+	)
 })
 
 app.get('/admin', function(req, res) {
 	res.render('admin', {});
 })
 
+// admin should list all the projects so you can edit/delete them
 app.post('/admin', function(req, res) {
 	console.log("Posted");
 	console.log(req.body);
@@ -73,37 +56,67 @@ app.post('/admin', function(req, res) {
 	var gLink = req.body.gitLink;
 	var iPath = req.body.imgPath;
 	var lDesc = req.body.longDescription;
-	con.query("SELECT id FROM projects", function(err, rows, fields) {
-		if (err) {
-			res.status(500).json({
-				"status_code": 500,
-				"status_message": "internal server error, select failed"
-			});
-			res.end("Nope");
-		} else {
-			var max = 0;
-			for (const [index, record] of rows.entries()) {
-				if (parseInt(rows[index].id) > max) {
-					max = parseInt(rows[index].id);
-				}
-			}
-			var id = max + 1;
-			con.query("INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + "," + name + "," + sDesc + "," + gLink + "," + iPath + "," + lDesc + ")", function(err) {
-				if (err) {
-					res.status(500).json({
-						"status_code": 500,
-						"status_message": "internal server error, insert failed"
-					});
-					res.end("Nope");
-				} else {
-					res.end("Yup");
-				}
-			});
 
-		}
-
-	})
+	// I don't think this nesting is idiomatic
+	get_projects(con, res).then(
+		result => get_max(result).then(
+			result => insert_project(con, res, result),
+			error => fivehundred()
+		),
+		error => fivehundred()
+	)
 })
 
 app.listen(8080, () =>
 	console.log("Listening on 8080"));
+
+function get_projects(con, res) {
+	return new Promise(function(resolve, reject) {
+		var records = [];
+		con.query("SELECT * FROM projects", function(err, rows, fields) {
+			if (err) {
+				// that looks more professional, could render a 500 error page
+				reject();
+			} else {
+				for (const [index, record] of rows.entries()) {
+					var entry = {
+						'id': rows[index].id,
+						'Name': rows[index].Name,
+						'Description': rows[index].Description,
+						'RepoPath': rows[index].RepoPath,
+						'ImgPath': rows[index].ImgPath,
+						'Synopsis': rows[index].Synopsis
+					};
+					records.push(entry);
+				}
+				resolve(records);
+			}
+		});
+	})
+};
+
+function get_max(results) {
+	return new Promise(function(resolve, reject) {
+		var max = 0;
+		for (const project in results) {
+			var id = parseInt(project['id']);
+			if (id > max) {
+				max = id;
+			}
+		}
+		var id = max + 1;
+		resolve(id);
+	})
+}
+
+function insert_project(con, res, project) {
+	res.end("We made it");
+}
+
+function fivehundred(res) {
+	res.status(500).json({
+		"status_code": 500,
+		"status_message": "internal server error, select failed"
+	});
+	res.end("Nope");
+}
