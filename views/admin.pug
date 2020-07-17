@@ -31,5 +31,5 @@ html
                         p= "Image Path: " + record.ImgPath
                         p= "Description: " + record.Synopsis
                         button= 'Edit'
-                        form(action="/admin" method="delete")
-                            button= 'Delete'
+                        form(method="post" action="/admin/"+record.id+"?_method=DELETE")
+                            button(type="submit")= "Delete"

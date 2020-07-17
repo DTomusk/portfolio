@@ -4,7 +4,8 @@ var mysql = require('mysql'), // needed for accessing the database
 	express = require('express'),
 	morgan = require('morgan'),
 	pug = require('pug'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	methodOverride = require('method-override');
 
 
 // putting things in place
@@ -23,6 +24,7 @@ con.connect(function(err) {
 	console.log("Connected to database")
 })
 
+app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 app.set('view engine', 'pug');
 app.use(express.static('assets'));
@@ -75,9 +77,14 @@ app.post('/admin', function(req, res) {
 	)
 })
 
-app.delete('/admin', function(req, res) {
-	delete_project(con, res, req.body['id']).then(
-		result => console.log("Successfully deleted"),
+app.post('/admin/:id', function(req, res) {
+	console.log("Hrmph");
+})
+
+app.delete('/admin/:id', function(req, res) {
+	console.log(req.params.id);
+	delete_project(con, res, req.params.id).then(
+		result => get_admin(con, res),
 		error => fivehundred(res)
 	);
 })
