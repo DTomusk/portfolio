@@ -392,3 +392,12 @@ I think will include promises because there are con functions that I need to use
 in different places and I don't just want to nest them repeatedly (speaking of,
 I think I finally understand why promises are useful and what they prevent from
 happening)).
+;********************************************************************************
+17/07/20
+    Posting new projects is easy enough, but deleting them is a bit of a hassle.
+Html doesn't yet support put and delete so there's no direct way of telling the
+server to delete a project without using an ajax call, but for some reason ajax
+didn't want to play ball (it did delete the projects, but it didn't reload the
+admin page with the proper alert that I wanted, I had to reload manually). I'm
+looking into overriding headers to let a form be used for deleting which would
+hopefully make things a lot easier. 

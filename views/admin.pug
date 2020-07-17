@@ -4,6 +4,7 @@ html
         style
             include ./style.css
     body
+        div.alert(onload='alert(alert_msg)')
         div.random
             h2= 'Add new project entry'
             form(action="/admin" method="post")
@@ -18,8 +19,6 @@ html
                 input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000")
                 br
                 button= 'Save'
-            if success
-                p= success
         div.random
             h2= 'Edit projects'
             ul
@@ -32,4 +31,5 @@ html
                         p= "Image Path: " + record.ImgPath
                         p= "Description: " + record.Synopsis
                         button= 'Edit'
-                        button= 'Delete'
+                        form(action="/admin" method="delete")
+                            button= 'Delete'

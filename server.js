@@ -1,3 +1,4 @@
+// imports
 var mysql = require('mysql'), // needed for accessing the database
 	fs = require('fs'), // needed to access files in the directory, such as web pages
 	express = require('express'),
@@ -5,8 +6,11 @@ var mysql = require('mysql'), // needed for accessing the database
 	pug = require('pug'),
 	bodyParser = require('body-parser');
 
-var app = express();
 
+// putting things in place
+
+
+var app = express();
 var con = mysql.createConnection({ // log into database
 	host: 'localhost',
 	user: 'root',
@@ -14,27 +18,26 @@ var con = mysql.createConnection({ // log into database
 	database: 'portfolio'
 });
 
-// only connect to the database once
 con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected to database")
 })
 
-// logs all http requests in the console
 app.use(morgan('combined'));
-// use pug files in the view folder as templates for sites
 app.set('view engine', 'pug');
-
 app.use(express.static('assets'));
-
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
+
+// routing
+
+
 app.get('/', function(req, res) {
+	console.log(req.body);
 	get_projects(con, res).then(
 		result => {
-			console.log(result);
 			res.render('index', {
 				"records": result
 			});
@@ -44,18 +47,11 @@ app.get('/', function(req, res) {
 })
 
 app.get('/admin', function(req, res) {
-	get_projects(con, res).then(
-		result => res.render('admin', {
-			"records": result
-		}),
-		error => fivehundred(res)
-	)
+	get_admin(con, res);
 })
 
 // admin should list all the projects so you can edit/delete them
 app.post('/admin', function(req, res) {
-	console.log("Posted");
-	console.log(req.body);
 	var entry = {
 		'Name': req.body.projectName,
 		'Description': req.body.shortDescription,
@@ -66,17 +62,24 @@ app.post('/admin', function(req, res) {
 
 	// I don't think this nesting is idiomatic
 	get_projects(con, res).then(
-		result => get_max(result).then(
-			result => insert_project(con, res, result, entry).then(
-				result => res.render('admin', {
-					"success": "New project added successfully"
-				}),
+		result => {
+			get_max(result).then(
+				result => insert_project(con, res, result, entry).then(
+					result => get_admin(con, res),
+					error => fivehundred(res)
+				),
 				error => fivehundred(res)
-			),
-			error => fivehundred(res)
-		),
+			)
+		},
 		error => fivehundred(res)
 	)
+})
+
+app.delete('/admin', function(req, res) {
+	delete_project(con, res, req.body['id']).then(
+		result => console.log("Successfully deleted"),
+		error => fivehundred(res)
+	);
 })
 
 app.get('*', function(req, res) {
@@ -86,6 +89,10 @@ app.get('*', function(req, res) {
 
 app.listen(8080, () =>
 	console.log("Listening on 8080"));
+
+
+// db functions
+
 
 function get_projects(con, res) {
 	return new Promise(function(resolve, reject) {
@@ -122,15 +129,12 @@ function get_max(results) {
 			}
 		}
 		max += 1;
-		console.log("Next ID " + max);
 		resolve(max);
 	})
 }
 
 function insert_project(con, res, id, project) {
 	return new Promise(function(resolve, reject) {
-		console.log(id);
-		console.log(project);
 		con.query("INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + "," + project['Name'] + "," + project['Description'] + "," + project['RepoPath'] + "," + project['ImgPath'] + "," + project['Synopsis'] + ")", function(err) {
 			if (err) {
 				reject();
@@ -142,7 +146,37 @@ function insert_project(con, res, id, project) {
 	})
 }
 
+function delete_project(con, res, id) {
+	return new Promise(function(resolve, reject) {
+		con.query("DELETE FROM projects WHERE id=" + id, function(err) {
+			if (err) {
+				reject();
+			} else {
+				resolve();
+			}
+		});
+	})
+}
+
+
+// some page functions
+
+
 function fivehundred(res) {
 	res.status(500);
 	res.render("500", {});
+}
+
+function get_admin(con, res) {
+	console.log("Getting admin");
+	get_projects(con, res).then(
+		result => {
+			console.log("Got page");
+			console.log(result);
+			res.render('admin', {
+				"records": result
+			})
+		},
+		error => fivehundred(res)
+	)
 }
