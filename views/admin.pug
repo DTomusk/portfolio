@@ -30,5 +30,13 @@ html
                         p= "Image Path: " + record.ImgPath
                         p= "Description: " + record.Synopsis
                         button= 'Edit'
-                        form(method="post" action="/admin/"+record.id+"?_method=DELETE")
-                            button(type="submit")= "Delete"
+                        form(method="post" action="/admin/"+record.id+"?_method=DELETE" onsubmit="return check_submit();")
+                            button(type="submit" onclick="del_alert()")= "Delete"
+        script.
+            function check_submit() {
+                if(confirm("Do you really want to delete this project?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
