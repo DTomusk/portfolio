@@ -400,4 +400,31 @@ server to delete a project without using an ajax call, but for some reason ajax
 didn't want to play ball (it did delete the projects, but it didn't reload the
 admin page with the proper alert that I wanted, I had to reload manually). I'm
 looking into overriding headers to let a form be used for deleting which would
-hopefully make things a lot easier. 
+hopefully make things a lot easier.
+;********************************************************************************
+18/07/20
+    There's a number of problems that I need to solve right now:
+1) Adding projects basically doesn't work, there's no checking whether input is
+    correct and most inputs cause an error
+2) Deleting projects is too easy, there's no warning it's just gone
+3) Edit doesn't do anything, there's no way to edit projects
+4) The info pop up is still lorem ipsum, it doesn't take the data associated with
+    the project in question
+5) I still have to delete my password before every commit, which isn't safe
+
+    I think I'm just gonna take these problems one at a time and solve them before
+adding anything new.
+
+1) I tried inputting Good, 1, 2, 3, 4 for the respective fields and that threw a
+    500. Need to do some debugging. I think the problem is that it can't handle
+    strings, it can take numbers but strings need to be in quotes and that is a
+    bit trickier to do because I'm using double quotes for formatting and single
+    quotes for accessing the dictionary. I've now successfully solved that problem,
+    but there's probably a bunch of string stuff that I haven't accounted for.
+    Next I need to add checks to make sure that input is valid. This can be done
+    inline with html. I've now made every field required and added some regexes,
+    they're not perfect but they're good for now. I should make custom messages
+    for when an entry is rejected, but I think that's slightly lower priority
+    right now because no one else is going to be using the admin page. Now I want
+    to render admin after a post and a delete with an alert or message saying that
+    whatever action has been done has been done. 

@@ -54,6 +54,7 @@ app.get('/admin', function(req, res) {
 
 // admin should list all the projects so you can edit/delete them
 app.post('/admin', function(req, res) {
+	console.log("Trying to post");
 	var entry = {
 		'Name': req.body.projectName,
 		'Description': req.body.shortDescription,
@@ -61,15 +62,24 @@ app.post('/admin', function(req, res) {
 		'ImgPath': req.body.imgPath,
 		'Synopsis': req.body.longDescription
 	};
+	console.log("Posting entry: " + entry);
 
 	// I don't think this nesting is idiomatic
 	get_projects(con, res).then(
 		result => {
+			console.log("Successfully retrieved projects");
 			get_max(result).then(
-				result => insert_project(con, res, result, entry).then(
-					result => get_admin(con, res),
-					error => fivehundred(res)
-				),
+				result => {
+					console.log("Successfully retrieved max id");
+					insert_project(con, res, result, entry).then(
+						result => {
+							console.log("Successfully inserted project");
+							console.log("Rerendering admin");
+							get_admin(con, res)
+						},
+						error => fivehundred(res)
+					)
+				},
 				error => fivehundred(res)
 			)
 		},
@@ -141,8 +151,17 @@ function get_max(results) {
 }
 
 function insert_project(con, res, id, project) {
+	console.log("Inserting project with id: " + id);
 	return new Promise(function(resolve, reject) {
-		con.query("INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + "," + project['Name'] + "," + project['Description'] + "," + project['RepoPath'] + "," + project['ImgPath'] + "," + project['Synopsis'] + ")", function(err) {
+		var name = project['Name'];
+		var desc = project['Description'];
+		var repo = project['RepoPath'];
+		var img = project['ImgPath'];
+		var syn = project['Synopsis'];
+		var sql = "INSERT INTO projects(id,Name,Description,RepoPath,ImgPath,Synopsis) VALUES(" + id + ",'" + name + "','" + desc + "','" + repo + "','" + img + "','" + syn + "')"
+		console.log("SQL script:");
+		console.log(sql);
+		con.query(sql, function(err) {
 			if (err) {
 				reject();
 			} else {
