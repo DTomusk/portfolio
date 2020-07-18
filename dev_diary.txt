@@ -401,6 +401,8 @@ didn't want to play ball (it did delete the projects, but it didn't reload the
 admin page with the proper alert that I wanted, I had to reload manually). I'm
 looking into overriding headers to let a form be used for deleting which would
 hopefully make things a lot easier.
+
+    Overriding headers worked, my post is now a delete. 
 ;********************************************************************************
 18/07/20
     There's a number of problems that I need to solve right now:
@@ -427,4 +429,16 @@ adding anything new.
     for when an entry is rejected, but I think that's slightly lower priority
     right now because no one else is going to be using the admin page. Now I want
     to render admin after a post and a delete with an alert or message saying that
-    whatever action has been done has been done. 
+    whatever action has been done has been done.
+
+    Instead of working on problem 2 I refactored the whole project and reduced
+server.js to practically nothing. This new structure means the project can grow
+in a much more safe and clear way, everything now has its place and functions
+that work in different areas no longer appear next to each other.
+
+    One of the things I want to do is authentication, I'm looking into passport.js
+for that. If I deploy this site then I don't want people to be able to waltz
+around /admin. I've never had to think about this kind of security before because
+I've never deployed my own project online, but that seems to be a possibility with
+this project. But I think I'll hold off on that for now, I'm still working on the
+problems I outlined before.

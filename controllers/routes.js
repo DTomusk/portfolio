@@ -65,9 +65,6 @@ router.route('/admin')
 	})
 
 router.route('/admin/:id')
-	.post((req, res) => {
-		console.log("This shouldn't happen");
-	})
 	.delete((req, res) => {
 		con = db.login();
 		con.connect(function(err) {
