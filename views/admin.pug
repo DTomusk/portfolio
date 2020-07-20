@@ -4,6 +4,8 @@ html
         style
             include ./style.css
     body
+        if message != ""
+            p= message
         div.random
             h2= 'Add new project entry'
             form(action="/admin" method="post")
@@ -30,10 +32,10 @@ html
                         p= "Image Path: " + record.ImgPath
                         p= "Description: " + record.Synopsis
                         button(onclick="toggle_edit("+record.id+")")= 'Edit'
-                        form(method="post" action="/admin/"+record.id+"?_method=DELETE" onsubmit="return check_submit();")
-                            button(type="submit" onclick="del_alert()")= "Delete"
+                        form(method="post" action="/admin/"+record.id+"?_method=DELETE" onsubmit="return check_submit('delete');")
+                            button= "Delete"
                     li.edit(id=record.id+"edit")
-                        form(method="post" action="/admin/"+record.id+"?_method=PUT" onsubmit="return check_submit();")
+                        form(method="post" action="/admin/"+record.id+"?_method=PUT" onsubmit="return check_submit('update');")
                             input(type="text" placeholder="Project Name" name="projectName" maxlength="45" required value=record.Name)
                             br
                             input(type="text" placeholder="Short Description" name="shortDescription" maxlength="200" required value=record.Description)
@@ -46,8 +48,8 @@ html
                             br
                             button= 'Update'
         script.
-            function check_submit() {
-                if(confirm("Do you really want to delete this project?")) {
+            function check_submit(verb) {
+                if(confirm("Do you really want to " + verb + " this project?")) {
                     return true;
                 } else {
                     return false;

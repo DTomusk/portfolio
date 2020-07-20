@@ -1,3 +1,4 @@
+- var info_text = ""
 html
     head
         title= 'Big website'
@@ -6,8 +7,7 @@ html
     body
         div#info
             div#project
-                p= "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Sagittis vitae et leo duis ut diam. Vestibulum morbi blandit cursus risus at. Et pharetra pharetra massa massa ultricies mi. Turpis egestas integer eget aliquet nibh praesent tristique magna. Fusce id velit ut tortor pretium viverra suspendisse potenti. Nulla facilisi morbi tempus iaculis urna. Amet mattis vulputate enim nulla. Cursus eget nunc scelerisque viverra mauris in aliquam sem."
-                br
+                p= info_text
         div.heading
             h1= 'David Tomusk'
         div.sub
@@ -16,13 +16,16 @@ html
             ul
                 each record in records ? records : ['No records found']
                     li
-                        div.content
+                        div.content(onclick="set_info('"+record.Synopsis+"')")
                             img.img(src='/dorime.jpg')
                             h3= record.Name
                             p= record.Description
         div.footer
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
         script.
+            function set_info(text) {
+                document.getElementById('project').childNodes[0].innerHTML = text;
+            }
             $(document).ready(function(){
                 $(".content").click(function() {
                     if ($("#info").is(":hidden")) {
