@@ -411,7 +411,7 @@ hopefully make things a lot easier.
 2) Deleting projects is too easy, there's no warning it's just gone
 3) Edit doesn't do anything, there's no way to edit projects
 4) The info pop up is still lorem ipsum, it doesn't take the data associated with
-    the project in question
+    the project itself
 5) I still have to delete my password before every commit, which isn't safe
 
     I think I'm just gonna take these problems one at a time and solve them before
@@ -445,4 +445,20 @@ problems I outlined before.
 
 2) The solution I found for this is pretty simple, attach a function to the form
     in onsubmit, the function creates an alert and depending on the outcome of
-    that alert follows through with the request. It seems to work well. 
+    that alert follows through with the request. It seems to work well.
+;********************************************************************************
+20/07/20
+3) To edit, bring up pop up (or just expand project item) with current information
+already in the fields and have a button to update the entry. For each element in
+projects we could have two list entries only one of which is visible at a time.
+Clicking edit will only switch the visibility on both. I can use jquery to set
+the visibility of each element, I just need to give each element a unique name.
+They can be the record.id and edit or info.
+
+    So far, clicking edit hides the info box and displays the edit box. A
+successful edit posts a new project instead of updating the old one. Regexes have
+been improved.
+
+    I can use the exact same method for overriding headers as in delete in put.
+In fact, pretty much everything I needed for the editing I'd done before, I
+simply had to write an update statement in SQL and I was ready to go. 

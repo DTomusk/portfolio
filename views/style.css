@@ -146,6 +146,10 @@ input {
     flex-direction: column;
 }
 
+.edit {
+    display: none;
+}
+
 button {
     margin: 20px;
 }

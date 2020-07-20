@@ -77,6 +77,26 @@ router.route('/admin/:id')
 			error => fivehundred(res)
 		);
 	})
+	.put((req, res) => {
+		con = db.login();
+		con.connect(function(err) {
+			if (err) throw err;
+			console.log("Connected to database")
+		})
+		console.log(req.params.id);
+		var entry = {
+			'Name': req.body.projectName,
+			'Description': req.body.shortDescription,
+			'RepoPath': req.body.gitLink,
+			'ImgPath': req.body.imgPath,
+			'Synopsis': req.body.longDescription
+		};
+		console.log(entry);
+		db.update_project(con, res, req.params.id, entry).then(
+			result => get_admin(con, res),
+			error => fivehundred(res)
+		);
+	})
 
 function get_admin(con, res) {
 	console.log("Getting admin");

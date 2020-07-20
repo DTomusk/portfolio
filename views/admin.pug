@@ -11,9 +11,9 @@ html
                 br
                 input(type="text" placeholder="Short Description" name="shortDescription" maxlength="200" required)
                 br
-                input(type="text" placeholder="GitHub link" name="gitLink" maxlength="50" required pattern="https://github.com/[a-zA-Z0-9]+/[a-zA-Z0-9]+")
+                input(type="text" placeholder="GitHub link" name="gitLink" maxlength="50" required pattern="https://github.com/[a-zA-Z0-9-]+/[a-zA-Z0-9-]+")
                 br
-                input(type="text" placeholder="Image path" name="imgPath" maxlength="30" required pattern="\./[a-zA-Z0-9]+")
+                input(type="text" placeholder="Image path" name="imgPath" maxlength="30" required pattern="\./[a-zA-Z0-9]+\.[a-zA-Z0-9]+")
                 br
                 input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000" required)
                 br
@@ -22,16 +22,29 @@ html
             h2= 'Edit projects'
             ul
                 each record in records ? records : ['No records found']
-                    li
+                    li(id=record.id+"info")
                         p= "id: " + record.id
                         p= "Project name: " + record.Name
                         p= "Summary: " + record.Description
                         a(href=record.RepoPath)= "GitHub Link: " + record.RepoPath
                         p= "Image Path: " + record.ImgPath
                         p= "Description: " + record.Synopsis
-                        button= 'Edit'
+                        button(onclick="toggle_edit("+record.id+")")= 'Edit'
                         form(method="post" action="/admin/"+record.id+"?_method=DELETE" onsubmit="return check_submit();")
                             button(type="submit" onclick="del_alert()")= "Delete"
+                    li.edit(id=record.id+"edit")
+                        form(method="post" action="/admin/"+record.id+"?_method=PUT" onsubmit="return check_submit();")
+                            input(type="text" placeholder="Project Name" name="projectName" maxlength="45" required value=record.Name)
+                            br
+                            input(type="text" placeholder="Short Description" name="shortDescription" maxlength="200" required value=record.Description)
+                            br
+                            input(type="text" placeholder="GitHub link" name="gitLink" maxlength="50" required pattern="https://github.com/[a-zA-Z0-9-]+/[a-zA-Z0-9-]+" value=record.RepoPath)
+                            br
+                            input(type="text" placeholder="Image path" name="imgPath" maxlength="30" required pattern="\./[a-zA-Z0-9-]+\.[a-zA-Z0-9]+" value=record.ImgPath)
+                            br
+                            input(type="text" placeholder="Long Description" name="longDescription" maxlength="1000" required value=record.Synopsis)
+                            br
+                            button= 'Update'
         script.
             function check_submit() {
                 if(confirm("Do you really want to delete this project?")) {
@@ -39,4 +52,8 @@ html
                 } else {
                     return false;
                 }
+            }
+            function toggle_edit(id) {
+                document.getElementById(id+"edit").style["display"] = "flex";
+                document.getElementById(id+"info").style["display"] = "none";
             }
